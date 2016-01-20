@@ -1,0 +1,112 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ConsoleAccess",
+      "Action": "ec2:Describe*",
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Sid": "StartStopTerminate",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:TerminateInstances",
+        "ec2:StopInstances"
+      ],
+      "Resource": [
+        "arn:aws:ec2:us-west-2:account-id:instance/*",
+        "arn:aws:ec2:us-west-1:account-id:instance/*",
+        "arn:aws:ec2:us-east-1:account-id:instance/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "ec2:ResourceTag/Stage": "Development"
+        }
+      }
+    },
+    {
+      "Sid": "RunInstances",
+      "Action": "ec2:RunInstances",
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:ec2:us-west-2:account-id:instance/*",
+        "arn:aws:ec2:us-west-2:account-id:security-group/*",
+        "arn:aws:ec2:us-west-2:account-id:volume/*",
+        "arn:aws:ec2:us-west-2:account-id:network-interface/*",
+        "arn:aws:ec2:us-west-2:account-id:instance/*",
+        "arn:aws:ec2:us-west-1:account-id:security-group/*",
+        "arn:aws:ec2:us-west-1:account-id:volume/*",
+        "arn:aws:ec2:us-west-1:account-id:network-interface/*",
+        "arn:aws:ec2:us-east-1:account-id:instance/*",
+        "arn:aws:ec2:us-east-1:account-id:security-group/*",
+        "arn:aws:ec2:us-east-1:account-id:volume/*",
+        "arn:aws:ec2:us-east-1:account-id:network-interface/*"
+      ]
+    },
+    {
+      "Sid": "GetListSQSQueues",
+      "Action": [
+        "sqs:Get*",
+        "sqs:List*"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:sqs:us-east-1:account-id:*",
+        "arn:aws:sqs:us-west-1:account-id:*",
+        "arn:aws:sqs:us-west-2:account-id:*"
+      ]
+    },
+    {
+      "Sid": "GetListSNS",
+      "Action": [
+        "sns:Get*",
+        "sns:List*"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:sns:us-east-1:account-id:*",
+        "arn:aws:sns:us-west-1:account-id:*",
+        "arn:aws:sns:us-west-2:account-id:*"
+      ]
+    },
+    {
+      "Sid": "CloudWatch",
+      "Action": [
+        "cloudwatch:DescribeA*",
+        "cloudwatch:Get*",
+        "cloudwatch:List*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Sid": "CloudTrail",
+      "Action": [
+        "cloudtrail:Describe*",
+        "cloudtrail:Get*",
+        "cloudtrail:Look*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Sid": "Config",
+      "Action": [
+        "config:Describe*",
+        "config:Get*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Sid": "GetListS3Buckets",
+      "Action": [
+        "s3:Get*",
+        "s3:List*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::*"
+    }
+  ]
+}
